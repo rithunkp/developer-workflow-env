@@ -1,9 +1,13 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from typing import Any
 
 
-def _clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:
+STRICT_LOW = 0.001
+STRICT_HIGH = 0.999
+
+
+def _clamp(value: float, low: float = STRICT_LOW, high: float = STRICT_HIGH) -> float:
     return max(low, min(high, value))
 
 

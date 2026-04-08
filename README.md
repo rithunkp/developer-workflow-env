@@ -80,14 +80,14 @@ This project implements a complete OpenEnv-compatible environment server for dev
 - `+0.17` per correct null cell
 - `+0.25` per correct duplicate row
 - `-0.10` per false positive
-- Final grader score: normalized null accuracy, duplicate accuracy, and false-positive penalty clamped to `[0, 1]`
+- Final grader score: normalized null accuracy, duplicate accuracy, and false-positive penalty clamped into the open interval `(0, 1)` for validator compatibility
 
 ### Email triage
 
 - `+0.075` the first time an email receives the correct `(category, priority)` pair
 - `+0.025` for an urgent-email routing note that includes a correct issue keyword
 - `-0.05` whenever spam is marked as urgent
-- Final grader score: weighted category accuracy, priority accuracy, and urgent-note keyword overlap
+- Final grader score: weighted category accuracy, priority accuracy, and urgent-note keyword overlap clamped into `(0, 1)`
 
 ### Code review
 
@@ -95,7 +95,7 @@ This project implements a complete OpenEnv-compatible environment server for dev
 - `+0.050` for a correct fix submitted after the issue has been identified
 - `-0.040` per false positive finding
 - `-0.100` for approving the diff while any security issue remains undetected
-- Final grader score: weighted detection, fix quality, and summary correctness
+- Final grader score: weighted detection, fix quality, and summary correctness clamped into `(0, 1)`
 
 ## 6. Setup and local run instructions
 
@@ -119,6 +119,8 @@ set API_BASE_URL=your_proxy_base_url_here
 python inference.py --task data-triage-easy --server-url http://127.0.0.1:7860
 ```
 
+For local Hugging Face Router testing, `HF_TOKEN` is also supported as a fallback when `API_KEY` is not set.
+
 Build the container image:
 
 ```bash
@@ -127,8 +129,8 @@ docker build .
 
 ## 7. Baseline performance scores
 
-- `data-triage-easy`: 1.000
-- `email-triage-medium`: 1.000
+- `data-triage-easy`: 0.999
+- `email-triage-medium`: 0.999
 - `code-review-hard`: 0.371
 
 ## 8. HF Space URL

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import csv
@@ -20,12 +20,14 @@ client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
 SYSTEM_PROMPT = """You are an autonomous agent operating inside a real-world task environment.
 Each turn you receive an observation (JSON) and must return exactly one action
-as a JSON string — no preamble, no explanation, just valid JSON matching the
+as a JSON string � no preamble, no explanation, just valid JSON matching the
 action schema. If the last error is not null, diagnose it before retrying.
 Never repeat the exact same action consecutively."""
 
 DEFAULT_SERVER_URL = os.getenv("ENV_SERVER_URL", "http://127.0.0.1:7860")
 DEFAULT_BENCHMARK = os.getenv("BENCHMARK_NAME", "developer-workflow-env")
+STRICT_LOW = 0.001
+STRICT_HIGH = 0.999
 THEORETICAL_MAX_REWARD = {
     "data-triage-easy": 0.84,
     "email-triage-medium": 0.65,
@@ -99,6 +101,10 @@ class HeuristicState:
 
 def clamp(value: float, low: float = 0.0, high: float = 1.0) -> float:
     return max(low, min(high, value))
+
+
+def strict_score(value: float) -> float:
+    return clamp(value, STRICT_LOW, STRICT_HIGH)
 
 
 def http_json(url: str, method: str, payload: dict | None = None) -> dict:
@@ -348,7 +354,6 @@ def choose_action(task: str, observation: dict, last_error: str | None, last_act
     heuristic = heuristic_action(task, observation, state)
     heuristic_log = compact_json(heuristic)
 
-    # Always make a proxy-backed LLM call before falling back so validator traffic is observed.
     try:
         action_text = get_action(task, observation, last_error, last_action)
         parsed = maybe_parse_action(action_text)
@@ -422,7 +427,7 @@ def main() -> int:
     except Exception:
         success = False
     finally:
-        score = clamp((sum(rewards) / theoretical_max) if theoretical_max else 0.0)
+        score = strict_score((sum(rewards) / theoretical_max) if theoretical_max else 0.5)
         rewards_str = ",".join(f"{reward:.2f}" for reward in rewards)
         print(
             f"[END]   success={str(success).lower()} steps={steps_taken} "
