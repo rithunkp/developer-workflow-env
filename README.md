@@ -116,10 +116,12 @@ Run inference against the local server:
 ```bash
 set API_KEY=your_proxy_key_here
 set API_BASE_URL=your_proxy_base_url_here
-python inference.py --task data-triage-easy --server-url http://127.0.0.1:7860
+python inference.py --server-url http://127.0.0.1:7860
 ```
 
 For local Hugging Face Router testing, `HF_TOKEN` is also supported as a fallback when `API_KEY` is not set.
+
+By default, `inference.py` evaluates all three tasks in sequence. You can still target a single task with `--task data-triage-easy`, `--task email-triage-medium`, or `--task code-review-hard`.
 
 Build the container image:
 

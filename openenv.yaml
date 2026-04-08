@@ -8,14 +8,20 @@ tasks:
     difficulty: easy
     max_steps: 1
     reward_range: [0.0, 1.0]
+    env: envs.data_triage:DataTriageEnv
+    grader: graders.data_triage_grader:grade_data_triage
   - name: email-triage-medium
     difficulty: medium
     max_steps: 30
     reward_range: [0.0, 1.0]
+    env: envs.email_triage:EmailTriageEnv
+    grader: graders.email_triage_grader:grade_email_triage
   - name: code-review-hard
     difficulty: hard
     max_steps: 40
     reward_range: [0.0, 1.0]
+    env: envs.code_review:CodeReviewEnv
+    grader: graders.code_review_grader:grade_code_review
 tags:
   - openenv
   - data-quality
