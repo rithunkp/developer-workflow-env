@@ -1,4 +1,11 @@
-﻿
+---
+title: Developer Workflow Env
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+---
+
 # OpenEnv Developer Workflow Environment
 
 ## 1. Environment overview and motivation
