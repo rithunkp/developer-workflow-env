@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import random
 from typing import Any
@@ -68,6 +68,19 @@ async def reset(request: Request) -> JSONResponse:
     ERROR_STATE = None
     observation = CURRENT_ENV.reset(task=task, seed=int(seed))
     return JSONResponse(content={"observation": _serialize(observation), "task": task, "seed": int(seed)}, status_code=200)
+
+
+@app.get("/")
+async def root() -> JSONResponse:
+    return JSONResponse(
+        content={
+            "name": "developer-workflow-env",
+            "status": "ok",
+            "endpoints": ["/reset", "/step", "/state"],
+            "tasks": list(TASKS),
+        },
+        status_code=200,
+    )
 
 
 @app.post("/step")
