@@ -20,7 +20,7 @@ client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
 SYSTEM_PROMPT = """You are an autonomous agent operating inside a real-world task environment.
 Each turn you receive an observation (JSON) and must return exactly one action
-as a JSON string � no preamble, no explanation, just valid JSON matching the
+as a JSON string - no preamble, no explanation, just valid JSON matching the
 action schema. If the last error is not null, diagnose it before retrying.
 Never repeat the exact same action consecutively."""
 
