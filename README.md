@@ -1,4 +1,4 @@
----
+﻿---
 title: Developer Workflow Env
 colorFrom: blue
 colorTo: green
@@ -129,8 +129,10 @@ docker build .
 
 ## 7. Baseline performance scores
 
-- `data-triage-easy`: 0.999
-- `email-triage-medium`: 0.999
+Fill this section after running `inference.py` locally:
+
+- `data-triage-easy`: 1.000
+- `email-triage-medium`: 1.000
 - `code-review-hard`: 0.371
 
 ## 8. HF Space URL
