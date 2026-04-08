@@ -107,9 +107,11 @@ uvicorn server:app --host 0.0.0.0 --port 7860
 Run inference against the local server:
 
 ```bash
-set HF_TOKEN=your_token_here
+set API_KEY=your_proxy_key_here
+set API_BASE_URL=your_proxy_base_url_here
 python inference.py --task data-triage-easy --server-url http://127.0.0.1:7860
 ```
+
 
 Build the container image:
 
@@ -126,4 +128,3 @@ docker build .
 ## 8. HF Space URL
 
 https://huggingface.co/spaces/itzrick/developer-workflow-env
-
