@@ -112,7 +112,6 @@ set API_BASE_URL=your_proxy_base_url_here
 python inference.py --task data-triage-easy --server-url http://127.0.0.1:7860
 ```
 
-
 Build the container image:
 
 ```bash
