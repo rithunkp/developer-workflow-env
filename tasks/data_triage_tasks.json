@@ -1,0 +1,17 @@
+﻿{
+  "task_name": "data-triage-easy",
+  "default_seeds": [11, 42, 97],
+  "columns": ["record_id", "customer_name", "email", "city", "plan", "signup_days"],
+  "pools": {
+    "first_names": ["Mina", "Noah", "Priya", "Elena", "Jordan", "Ravi", "Lucia", "Aiden", "Sara", "Malik"],
+    "last_names": ["Patel", "Morris", "Nguyen", "Garcia", "Lopez", "Walker", "Rao", "Kim", "Singh", "Brooks"],
+    "cities": ["Austin", "Seattle", "Denver", "Boston", "Phoenix", "Chicago", "Atlanta", "Miami"],
+    "plans": ["free", "starter", "growth", "enterprise"],
+    "domains": ["example.com", "product.dev", "mail.net"]
+  },
+  "sample_instances": [
+    {"seed": 11, "expected_nulls": 2, "expected_duplicates": 2},
+    {"seed": 42, "expected_nulls": 2, "expected_duplicates": 2},
+    {"seed": 97, "expected_nulls": 2, "expected_duplicates": 2}
+  ]
+}

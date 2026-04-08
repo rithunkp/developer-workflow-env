@@ -1,0 +1,108 @@
+﻿[
+  {
+    "task_id": "support-desk-alpha",
+    "emails": [
+      {
+        "id": "E-101",
+        "subject": "Invoice charged twice",
+        "body": "Our team was billed two times for the April invoice after upgrading seats. Please reverse the duplicate charge today.",
+        "answer": {"category": "billing", "priority": "urgent", "note_keywords": ["refund", "invoice", "duplicate"]}
+      },
+      {
+        "id": "E-102",
+        "subject": "Locked out after phone reset",
+        "body": "I cannot complete sign-in because the 2FA codes are going to my old device and production deploys are blocked.",
+        "answer": {"category": "technical", "priority": "urgent", "note_keywords": ["2fa", "device", "login"]}
+      },
+      {
+        "id": "E-103",
+        "subject": "Need a copy of last month's invoice",
+        "body": "Could you send the March invoice PDF for our accounting records when you have a moment?",
+        "answer": {"category": "billing", "priority": "normal", "note_keywords": ["invoice", "pdf"]}
+      },
+      {
+        "id": "E-104",
+        "subject": "Do you offer annual pricing?",
+        "body": "I am comparing vendors and want to know whether you have an annual team plan with a discount.",
+        "answer": {"category": "general", "priority": "low", "note_keywords": ["pricing", "annual"]}
+      },
+      {
+        "id": "E-105",
+        "subject": "Earn crypto rewards fast",
+        "body": "Click this private link now to unlock a wallet bonus and claim your free tokens instantly.",
+        "answer": {"category": "spam", "priority": "low", "note_keywords": ["spam"]}
+      },
+      {
+        "id": "E-106",
+        "subject": "Export crashes halfway through",
+        "body": "Every CSV export from the dashboard fails at 52 percent and the browser shows a blank page.",
+        "answer": {"category": "technical", "priority": "normal", "note_keywords": ["export", "crash"]}
+      },
+      {
+        "id": "E-107",
+        "subject": "Update billing address",
+        "body": "Please change the billing address on our account before the next invoice is generated.",
+        "answer": {"category": "billing", "priority": "normal", "note_keywords": ["address", "billing"]}
+      },
+      {
+        "id": "E-108",
+        "subject": "Where is the API documentation?",
+        "body": "I am evaluating the product and need the API docs plus authentication overview for a prototype.",
+        "answer": {"category": "general", "priority": "low", "note_keywords": ["docs", "api"]}
+      }
+    ]
+  },
+  {
+    "task_id": "support-desk-beta",
+    "emails": [
+      {
+        "id": "S-201",
+        "subject": "Refund request after accidental annual renewal",
+        "body": "Our subscription renewed yearly by mistake and finance needs a refund before close of business.",
+        "answer": {"category": "billing", "priority": "urgent", "note_keywords": ["refund", "renewal", "finance"]}
+      },
+      {
+        "id": "S-202",
+        "subject": "Webhook signatures no longer validate",
+        "body": "Production webhooks started failing signature checks this morning and our incident queue is growing.",
+        "answer": {"category": "technical", "priority": "urgent", "note_keywords": ["webhook", "signature", "production"]}
+      },
+      {
+        "id": "S-203",
+        "subject": "Can I get a quote for 50 seats?",
+        "body": "We are planning a rollout next quarter and want a formal quote for fifty engineering seats.",
+        "answer": {"category": "general", "priority": "normal", "note_keywords": ["quote", "seats"]}
+      },
+      {
+        "id": "S-204",
+        "subject": "Portal won't accept VAT number",
+        "body": "The billing page rejects our VAT number even though the format is correct for our country.",
+        "answer": {"category": "billing", "priority": "normal", "note_keywords": ["vat", "billing"]}
+      },
+      {
+        "id": "S-205",
+        "subject": "Top search ranking instantly",
+        "body": "Guaranteed SEO growth and backlinks in one hour. Reply now for exclusive access.",
+        "answer": {"category": "spam", "priority": "low", "note_keywords": ["spam"]}
+      },
+      {
+        "id": "S-206",
+        "subject": "Desktop app freezes on startup",
+        "body": "The Windows desktop app hangs on the splash screen after the latest update.",
+        "answer": {"category": "technical", "priority": "normal", "note_keywords": ["desktop", "startup"]}
+      },
+      {
+        "id": "S-207",
+        "subject": "Need to transfer account ownership",
+        "body": "Our admin left the company and I need instructions to transfer ownership of the workspace.",
+        "answer": {"category": "general", "priority": "normal", "note_keywords": ["ownership", "workspace"]}
+      },
+      {
+        "id": "S-208",
+        "subject": "Receipt missing for March payment",
+        "body": "Please resend the receipt for the payment processed on March 18 so I can reconcile expenses.",
+        "answer": {"category": "billing", "priority": "low", "note_keywords": ["receipt", "payment"]}
+      }
+    ]
+  }
+]

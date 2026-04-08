@@ -1,0 +1,17 @@
+﻿{
+  "task_name": "code-review-hard",
+  "sample_seeds": [5, 42, 99],
+  "filenames": [
+    "services/upload_review.py",
+    "workers/package_audit.py",
+    "handlers/archive_pipeline.py"
+  ],
+  "function_names": [
+    "handle_upload",
+    "process_archive",
+    "review_package"
+  ],
+  "payload_keys": ["payload", "raw_payload", "request_body"],
+  "token_defaults": ["dev-token", "debug-token", "fallback-token"],
+  "log_paths": ["/tmp/upload.log", "/tmp/archive.log", "/tmp/review.log"]
+}

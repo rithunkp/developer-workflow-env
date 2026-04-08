@@ -1,0 +1,49 @@
+Functional  Requirements  
+1.  Real-World  Task  Simulation  
+The  environment  must  represent  tasks  that  humans  actually  perform  in  real  settings—no  games  
+or
+ 
+toy
+ 
+problems.
+ 
+Examples  include  email  triage,  code  review,  data  cleaning,  scheduling,  customer  support,  and  
+content
+ 
+moderation.
+ 
+ 
+2.  OpenEnv  Specification  Compliance  
+The  environment  must  fully  implement  the  OpenEnv  interface,  including:  
+●  Typed  Observation ,  Action ,  and  Reward  models  using  Pydantic  ●  step(action)  →  returns  (observation,  reward,  done,  info)  ●  reset()  →  returns  the  initial  observation  ●  state()  →  returns  the  current  state  ●  An  openenv.yaml  file  containing  metadata  
+The  implementation  must  successfully  pass  validation  via  openenv  validate.  
+ 
+3.  Minimum  of  Three  Tasks  with  Agent  Graders  
+●  Provide  at  least  three  tasks ,  each  with  a  clearly  defined  objective  ●  Tasks  should  span  increasing  difficulty:  easy  →  medium  →  hard  ●  Each  task  must  include  a  programmatic  grader  that  assigns  a  score  between  0.0  and  
+1.0
+ ●  Grading  criteria  must  be  clear,  deterministic,  and  reproducible  
+ 
+4.  Meaningful  Reward  Function  
+●  The  reward  function  must  provide  feedback  throughout  the  task  trajectory,  not  just  at  
+completion
+ ●  It  should  reward  incremental  progress  toward  the  objective  ●  It  must  penalize  undesirable  behaviors  such  as  infinite  loops  or  destructive  actions  
+ 
+5.  Baseline  Inference  Script  
+●  Include  an  inference  script  that  uses  the  OpenAI  API  client  to  evaluate  a  model  within  
+the
+ 
+environment
+ ●  API  credentials  must  be  read  from  environment  variables  (HF_TOKEN)  ●  The  script  should  produce  a  reproducible  baseline  score  across  all  tasks  
+ 
+Non-Functional  Requirements  
+1.  Deployment  on  Hugging  Face  Spaces  
+●  The  environment  must  be  deployable  as  a  containerized  Hugging  Face  Space  ●  It  should  be  tagged  with  openenv  
+ 
+2.  Containerized  Execution  
+●  Provide  a  working  Dockerfile  ●  The  environment  must  build  and  run  successfully  using:  ○  docker  build  ○  docker  run  
+ 
+3.  Documentation  
+The  README  must  include:  
+●  Environment  overview  and  motivation  ●  Definitions  of  action  and  observation  spaces  ●  Task  descriptions  with  expected  difficulty  levels  ●  Setup  and  usage  instructions  ●  Baseline  performance  scores  
+ 
+Additional  Guideline:   Meta OpenEnv Hackathon: Guidelines

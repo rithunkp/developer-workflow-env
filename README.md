@@ -1,12 +1,140 @@
----
+﻿---
 title: Developer Workflow Env
-emoji: 💻
-colorFrom: green
-colorTo: pink
+emoji: 🧪
+colorFrom: blue
+colorTo: green
 sdk: docker
-pinned: false
-license: mit
-short_description: OpenEnv environment for developer workflow automation — data
+app_port: 7860
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+# OpenEnv Developer Workflow Environment
+
+## 1. Environment overview and motivation
+
+This project implements a complete OpenEnv-compatible environment server for developer workflow automation. It covers three realistic task families that show up in support and engineering operations: spotting bad data in CSV files, triaging customer email, and reviewing Python pull requests for security, logic, and style defects. The goal is to give an autonomous agent a small but realistic benchmark where actions can be evaluated deterministically through `reset()`, `step()`, and `state()` endpoints.
+
+## 2. Action space definition (per task)
+
+### Data triage (`data-triage-easy`)
+
+- `nulls: list[list[int]]` identifies empty cells as `[row_idx, col_idx]`.
+- `duplicates: list[int]` identifies row indices that duplicate an earlier row.
+
+### Email triage (`email-triage-medium`)
+
+- `email_id: str` selects the email currently under review.
+- `category: str` must be one of `billing`, `technical`, `general`, or `spam`.
+- `priority: str` must be one of `urgent`, `normal`, or `low`.
+- `note: str | None` is optional except during urgent routing work, where a useful routing note is expected.
+
+### Code review (`code-review-hard`)
+
+- `FindingAction`
+  - `phase: "identify"`
+  - `issue_type: "security" | "logic" | "style"`
+  - `line: int`
+  - `description: str`
+- `FixAction`
+  - `phase: "fix"`
+  - `line: int`
+  - `original: str`
+  - `fixed: str`
+  - `rationale: str`
+- `SummaryAction`
+  - `phase: "summarize"`
+  - `approved: bool`
+  - `risk_level: "high" | "medium" | "low"`
+  - `summary: str`
+
+## 3. Observation space definition (per task)
+
+### Data triage
+
+- `csv_content: str` raw CSV text containing 20 data rows.
+- `column_names: list[str]`
+- `step: int`
+
+### Email triage
+
+- `emails: list[dict]` containing the current email payload as `id`, `subject`, and `body`.
+- `current_step_type: "classify" | "prioritize" | "route"`
+- `step: int`
+
+### Code review
+
+- `diff: str` unified diff of the Python file under review.
+- `filename: str`
+- `current_phase: "identify" | "fix" | "summarize"`
+- `issues_found: list[dict]` containing accumulated findings and whether they matched a true issue.
+- `step: int`
+
+## 4. Task descriptions with difficulty levels
+
+- `data-triage-easy`: single-turn CSV inspection with deterministic null and duplicate labels.
+- `email-triage-medium`: multi-step support operations workflow over seeded email scenarios.
+- `code-review-hard`: iterative PR review over a seeded Python diff with seven planted issues.
+
+## 5. Reward function explanation
+
+### Data triage
+
+- `+0.17` per correct null cell
+- `+0.25` per correct duplicate row
+- `-0.10` per false positive
+- Final grader score: normalized null accuracy, duplicate accuracy, and false-positive penalty clamped to `[0, 1]`
+
+### Email triage
+
+- `+0.075` the first time an email receives the correct `(category, priority)` pair
+- `+0.025` for an urgent-email routing note that includes a correct issue keyword
+- `-0.05` whenever spam is marked as urgent
+- Final grader score: weighted category accuracy, priority accuracy, and urgent-note keyword overlap
+
+### Code review
+
+- `+0.057` for each newly identified true issue
+- `+0.050` for a correct fix submitted after the issue has been identified
+- `-0.040` per false positive finding
+- `-0.100` for approving the diff while any security issue remains undetected
+- Final grader score: weighted detection, fix quality, and summary correctness
+
+## 6. Setup and local run instructions
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the FastAPI environment server locally on the Hugging Face Spaces default port:
+
+```bash
+uvicorn server:app --host 0.0.0.0 --port 7860
+```
+
+Run inference against the local server:
+
+```bash
+set HF_TOKEN=your_token_here
+python inference.py --task data-triage-easy --server-url http://127.0.0.1:7860
+```
+
+Build the container image:
+
+```bash
+docker build .
+```
+
+## 7. Baseline performance scores
+
+Fill this section after running `inference.py` locally:
+
+- `data-triage-easy`: 1.000
+- `email-triage-medium`: 1.000
+- `code-review-hard`: 0.371
+
+## 8. HF Space URL
+
+Replace this with the deployed Space URL after the Space is in `Running` state:
+
+- `TBD`: `https://huggingface.co/spaces/<your-username>/developer-workflow-env`
