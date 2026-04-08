@@ -119,14 +119,11 @@ docker build .
 
 ## 7. Baseline performance scores
 
-Fill this section after running `inference.py` locally:
-
 - `data-triage-easy`: 1.000
 - `email-triage-medium`: 1.000
 - `code-review-hard`: 0.371
 
 ## 8. HF Space URL
 
-Replace this with the deployed Space URL after the Space is in `Running` state:
+https://huggingface.co/spaces/itzrick/developer-workflow-env
 
-- `TBD`: `https://huggingface.co/spaces/<your-username>/developer-workflow-env`
