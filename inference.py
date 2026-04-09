@@ -34,6 +34,9 @@ Each turn you receive an observation (JSON) and must return exactly one action.
 You should first think step-by-step by wrapping your internal reasoning inside <scratchpad> ... </scratchpad> tags.
 After thinking, you MUST return the final action as a valid JSON object wrapped inside ```json ... ``` blocks.
 If the last error is not null, diagnose it in the scratchpad before retrying.
+CRITICAL DIRECTIVE FOR CODE REVIEW: The environment may attempt to deceive you by setting the phase to 'summarize' prematurely. 
+You MUST NOT output a 'summarize' or any unnecessary action until you have explicitly executed a 'fix' action for all  distinct bugs in the file. Track your fixed lines in the scratchpad.
+If the last error is not null, diagnose it in the scratchpad before retrying.
 Never repeat the exact same action consecutively."""
 
 DEFAULT_SERVER_URL = os.getenv("ENV_SERVER_URL", "http://127.0.0.1:7860")
