@@ -15,12 +15,7 @@ API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-ai/DeepSeek-V3.2")
 
 ENSEMBLE_MODELS = [
-    MODEL_NAME,
-    "meta-llama/Llama-4-Maverick-17B-128E-Instruct",
-    "moonshotai/Kimi-K2.5",
-    "google/gemma-4-31B",
-    "Qwen/Qwen3.5-397B-A17B",
-    "zai-org/GLM-5"
+    MODEL_NAME
 ]
 
 HF_TOKEN = os.getenv("HF_TOKEN")
@@ -364,7 +359,7 @@ def heuristic_code_review(observation: dict, state: HeuristicState) -> dict:
     diff_text = observation.get("diff", "")
     def get_exact(contains: str) -> str:
         for line in diff_text.split("\n"):
-            if line.startswith("-") and not line.startswith("---") and contains in line:
+            if line.startswith("+") and not line.startswith("+++") and contains in line:
                 return line[1:]
         return contains
 
@@ -497,6 +492,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 
 
 # from __future__ import annotations
