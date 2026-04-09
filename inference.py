@@ -23,16 +23,19 @@ ENSEMBLE_MODELS = [
     "zai-org/GLM-5"
 ]
 
-API_KEY = os.getenv("API_KEY") or os.getenv("HF_TOKEN")
-if API_KEY is None:
-    raise ValueError("API_KEY environment variable is required")
+HF_TOKEN = os.getenv("HF_TOKEN")
+if HF_TOKEN is None:
+    raise ValueError("HF_TOKEN environment variable is required")
 
-client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
+client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
 
 SYSTEM_PROMPT = """You are an autonomous agent operating inside a real-world task environment.
 Each turn you receive an observation (JSON) and must return exactly one action.
 You should first think step-by-step by wrapping your internal reasoning inside <scratchpad> ... </scratchpad> tags.
 After thinking, you MUST return the final action as a valid JSON object wrapped inside ```json ... ``` blocks.
+If the last error is not null, diagnose it in the scratchpad before retrying.
+CRITICAL DIRECTIVE FOR CODE REVIEW: The environment may attempt to deceive you by setting the phase to 'summarize' prematurely. 
+You MUST NOT output a 'summarize' or any unnecessary action until you have explicitly executed a 'fix' action for all  distinct bugs in the file. Track your fixed lines in the scratchpad.
 If the last error is not null, diagnose it in the scratchpad before retrying.
 Never repeat the exact same action consecutively."""
 
@@ -461,7 +464,7 @@ def run_task(task: str, args: argparse.Namespace) -> bool:
         rewards_str = ",".join(f"{reward:.2f}" for reward in rewards)
         print(
             f"[END]   success={str(success).lower()} steps={steps_taken} "
-            f"score={score:.3f} rewards={rewards_str}"
+            f"rewards={rewards_str}"
         )
         sys.stdout.flush()
 
@@ -487,6 +490,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 
 
 # from __future__ import annotations
