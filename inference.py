@@ -14,18 +14,8 @@ from openai import OpenAI
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
 
-ENSEMBLE_MODELS = [
-    MODEL_NAME,
-    "deepseek-ai/DeepSeek-V3.2",
-    "meta-llama/Llama-4-Scout-17B-16E-Instruct",
-    "meta-llama/Llama-4-Maverick-17B-128E-Instruct",
-    "meta-llama/Meta-Llama-3-70B-Instruct",
-    "Qwen/Qwen3.5-397B-A17B",
-    "Qwen/Qwen3.5-397B-A17B-FP8",
-    "zai-org/GLM-4.5-Air",
-    "zai-org/GLM-5",
-    "moonshotai/Kimi-K2.5"
-]
+ENSEMBLE_MODELS = [MODEL_NAME]
+
 
 API_KEY = os.getenv("API_KEY") or os.getenv("HF_TOKEN")
 if API_KEY is None:
