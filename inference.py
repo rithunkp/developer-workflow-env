@@ -466,7 +466,7 @@ def run_task(task: str, args: argparse.Namespace) -> bool:
         rewards_str = ",".join(f"{reward:.2f}" for reward in rewards)
         print(
             f"[END]   success={str(success).lower()} steps={steps_taken} "
-            f"rewards={rewards_str}"
+            f"score={score:.3f} rewards={rewards_str}"
         )
         sys.stdout.flush()
 
