@@ -1,4 +1,4 @@
----
+﻿---
 title: Developer Workflow Env
 colorFrom: blue
 colorTo: green
@@ -132,8 +132,8 @@ docker build .
 ## 7. Baseline performance scores
 
 - `data-triage-easy`: 0.999
-- `email-triage-medium`: 0.999
-- `code-review-hard`: 0.371
+- `email-triage-medium`: 0.885
+- `code-review-hard`: 0.438
 
 ## 8. HF Space URL
 
